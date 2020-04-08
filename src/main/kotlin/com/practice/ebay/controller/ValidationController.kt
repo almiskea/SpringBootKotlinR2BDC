@@ -1,7 +1,6 @@
 package com.practice.ebay.controller
 
 import com.practice.ebay.exceptions.NotEligibleForShippingException
-import com.practice.ebay.models.Username
 import com.practice.ebay.service.ValidationService
 import org.springframework.web.bind.annotation.*
 

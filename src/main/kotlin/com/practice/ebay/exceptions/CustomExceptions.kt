@@ -5,5 +5,5 @@ import org.springframework.web.bind.annotation.ResponseStatus
 
 class CustomExceptions(message: String) : Exception(message)
 
-@ResponseStatus(HttpStatus.NOT_FOUND, reason = "User might not be eligible for the shipping program")
+@ResponseStatus(HttpStatus.NOT_FOUND, reason = "Item might not be eligible for the shipping program")
 class NotEligibleForShippingException(message: String) : Exception(message)

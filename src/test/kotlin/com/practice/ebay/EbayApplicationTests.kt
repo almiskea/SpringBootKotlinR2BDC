@@ -2,13 +2,12 @@ package com.practice.ebay
 
 import com.practice.ebay.controller.ValidationController
 import com.practice.ebay.repositories.CategoryRepository
-import com.practice.ebay.repositories.UsernameRepository
+import com.practice.ebay.repositories.UserRepository
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.http.MediaType
 import org.springframework.test.web.reactive.server.WebTestClient
 
 @SpringBootTest
@@ -19,7 +18,7 @@ class EbayApplicationTests(@Value("\${min.price.value}")
 	@Autowired
 	lateinit var controller: ValidationController
 	@Autowired
-	lateinit var usernameRepository : UsernameRepository
+	lateinit var userRepository : UserRepository
 	@Autowired
 	lateinit var categoryRepository : CategoryRepository
 	lateinit var seller: String
@@ -32,7 +31,7 @@ class EbayApplicationTests(@Value("\${min.price.value}")
 	fun setup() {
 		client = WebTestClient.bindToController(controller).build()
 		category = categoryRepository.findAll().blockLast()?.category ?: category
-		seller = usernameRepository.findAll().blockLast()?.username ?: "Dan"
+		seller = userRepository.findAll().blockLast()?.user ?: "Dan"
 	}
 
 	@Test
