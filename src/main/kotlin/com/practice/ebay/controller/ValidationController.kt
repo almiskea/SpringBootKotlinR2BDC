@@ -14,7 +14,7 @@ class ValidationController(val validationService: ValidationService) {
                          @RequestParam seller :String,
                          @RequestParam category :Int,
                          @RequestParam price :Double): Map<String, Boolean> =
-            validationService.validate(seller,category,price)?.let { mapOf("eligible" to true) } ?:
+            validationService.validate(seller,category,price,System.getProperty("min.price.value")?.toDouble())?.let { mapOf("eligible" to true) } ?:
             throw NotEligibleForShippingException("The item is not eligible for the shipping service")
 
 }
