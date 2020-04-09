@@ -5,5 +5,5 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
 
 @Table("$ENROLLED_USERS_TABLE")
-data class User(@Id var id: Int,var user:String)
+data class User(@Id var id: Int?,var user:String?)
 

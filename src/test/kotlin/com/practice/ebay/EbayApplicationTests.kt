@@ -22,7 +22,7 @@ class EbayApplicationTests(@Value("\${min.price.value}")
 	@Autowired
 	lateinit var categoryRepository : CategoryRepository
 	lateinit var seller: String
-	var category : Int = 0
+	var category : Int = 1
 	var price = minPrice;
 	var title = "Shipping Service"
 
@@ -35,16 +35,9 @@ class EbayApplicationTests(@Value("\${min.price.value}")
 	}
 
 	@Test
-	fun testBaseEndPoint() {
-		client.get()
-				.uri("/")
-				.exchange()
-				.expectStatus().isOk
-	}
-	@Test
 	fun testValidateEndpoint_thenFindExpectedJson() {
 		client.get()
-				.uri("/validate?seller=${seller}&category=${category}&title=${title}&price=${price}")
+				.uri("/validation/validate?seller=${seller}&category=${category}&title=${title}&price=${price}")
 				.exchange()
 				.expectStatus().isOk()
 				.expectBody()
@@ -54,7 +47,7 @@ class EbayApplicationTests(@Value("\${min.price.value}")
 	@Test
 	fun testValidateEndpoint_thenStatusShouldBeOk() {
 		client.get()
-				.uri("/validate?seller=${seller}&category=${category}&title=${title}&price=${price}")
+				.uri("/validation/validate?seller=${seller}&category=${category}&title=${title}&price=${price}")
 				.exchange()
 				.expectStatus().isOk
 	}
