@@ -10,7 +10,10 @@ class MinPriceController {
 
     @PutMapping("/{price}")
     suspend fun editPrice(@PathVariable price:Double): Map<String, Double?> {
-        System.setProperty("min.price.value", "${price}")
+        //the price would logically be greater than 0
+        // but here I am just checking for the right value, not the real business case
+
+        System.setProperty("min.price.value", "${if(price > 0) price else 0}")
         return mapOf("price" to System.getProperty("min.price.value")?.toDouble())
     }
 
