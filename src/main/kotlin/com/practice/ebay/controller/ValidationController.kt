@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*
 
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/validation")
 class ValidationController(val validationService: ValidationService) {
 
     @GetMapping("/validate")
@@ -17,6 +17,4 @@ class ValidationController(val validationService: ValidationService) {
             validationService.validate(seller,category,price)?.let { mapOf("eligible" to true) } ?:
             throw NotEligibleForShippingException("The item is not eligible for the shipping service")
 
-    @GetMapping("/")
-    suspend fun health() = mapOf("Status" to "UP")
 }

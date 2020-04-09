@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "com.practice"
-version = "0.0.1-SNAPSHOT"
+version = "1.0.1"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
@@ -31,10 +31,10 @@ dependencies {
 
 	runtimeOnly("com.h2database:h2")
 	runtimeOnly("io.r2dbc:r2dbc-h2")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}
-//	testImplementation("org.springframework.boot.experimental:spring-boot-test-autoconfigure-r2dbc")
 	testImplementation("io.projectreactor:reactor-test")
 }
 
