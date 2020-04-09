@@ -1,6 +1,6 @@
 package com.practice.ebay.controller
 
-import com.practice.ebay.exceptions.CustomExceptions
+import com.practice.ebay.exceptions.NotFoundException
 import com.practice.ebay.models.User
 import com.practice.ebay.repositories.UserRepository
 import kotlinx.coroutines.reactive.awaitFirstOrElse
@@ -16,16 +16,15 @@ class UserController(val userRepository: UserRepository) {
     suspend fun findAll(): MutableList<User>? = userRepository.findAll().buffer(Int.MAX_VALUE).awaitFirstOrElse { mutableListOf() }
 
     @GetMapping("/{userId}")
-    suspend fun findById(@PathVariable userId:Int): User? = userRepository.findById(userId).awaitFirstOrNull()
-
-    @GetMapping("/{user}")
-    suspend fun findByUser(@PathVariable user:String): User? = userRepository.findByUser(user)?.awaitFirstOrNull()
+    suspend fun findById(@PathVariable userId:Int): User? = userRepository.findById(userId).awaitFirstOrNull()?:
+    throw NotFoundException("Id is not associated with any user")
 
     @DeleteMapping("/{userId}")
     suspend fun deleteById(@PathVariable userId:Int): Void? = userRepository.deleteById(userId).awaitFirstOrNull()
 
     @PutMapping("/{userId}/{user}")
-    suspend fun save(@PathVariable userId:Int,@PathVariable user:String): User? = userRepository.save(User(userId,user)).awaitFirstOrNull()
+    suspend fun save(@PathVariable userId:Int,@PathVariable user:String): User? = userRepository.save(User(userId,user)).awaitFirstOrNull()?:
+    throw NotFoundException("Id is not associated with any user")
 
     @PostMapping("/{user}")
     suspend fun add(@PathVariable user:String): Void? = userRepository.insertUser(user)?.awaitFirstOrNull()

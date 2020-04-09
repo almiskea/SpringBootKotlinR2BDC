@@ -14,8 +14,6 @@ import reactor.core.publisher.Mono
 
 @Repository
 interface UserRepository: ReactiveCrudRepository<User, Int>{
-    @Query("SELECT * FROM $ENROLLED_USERS_TABLE WHERE $USERS_FIELD = :user")
-    fun findByUser(user: String?): Flux<User?>?
 
     @Modifying
     @Query("insert into $ENROLLED_USERS_TABLE ($USERS_FIELD) values (:user)")

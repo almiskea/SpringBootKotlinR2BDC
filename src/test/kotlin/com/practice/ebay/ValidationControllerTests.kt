@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.web.reactive.server.WebTestClient
 
 @SpringBootTest
-class EbayApplicationTests(@Value("\${min.price.value}")
+class ValidationControllerTests(@Value("\${min.price.value}")
 						   val minPrice :Double) {
 
 	lateinit var client: WebTestClient
