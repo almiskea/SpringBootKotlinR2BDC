@@ -1,6 +1,7 @@
 package com.practice.ebay
 
 import com.practice.ebay.controller.MinPriceController
+import com.practice.ebay.service.MinPriceService
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -25,6 +26,8 @@ class MinPriceControllerTests {
                 .uri("/price/70")
                 .exchange()
                 .expectStatus().isOk
+                .expectBody()
+                .json("{\"price\":70}")
     }
 
     @Test
@@ -33,5 +36,7 @@ class MinPriceControllerTests {
                 .uri("/price/")
                 .exchange()
                 .expectStatus().isOk
+                .expectBody()
+                .json("{\"price\":${System.getProperty("min.price.value")}}")
     }
 }
