@@ -34,6 +34,7 @@ class CategoryControllerTest {
                 .uri("/categories/${category}")
                 .exchange()
                 .expectStatus().isOk
+                .expectBody().isEmpty
     }
 
     @Test

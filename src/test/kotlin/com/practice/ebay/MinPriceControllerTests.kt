@@ -1,7 +1,6 @@
 package com.practice.ebay
 
 import com.practice.ebay.controller.MinPriceController
-import com.practice.ebay.service.MinPriceService
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
