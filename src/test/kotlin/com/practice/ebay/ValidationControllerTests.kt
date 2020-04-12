@@ -23,25 +23,15 @@ class ValidationControllerTests(@Value("\${min.price.value}")
 	lateinit var categoryRepository : CategoryRepository
 	lateinit var seller: String
 	var category : Int = 1
-	var price = minPrice;
+	var price = minPrice
 	var title = "Shipping Service"
 
 
 	@BeforeEach
 	fun setup() {
 		client = WebTestClient.bindToController(controller).build()
-		category = categoryRepository.findAll().blockLast()?.category ?: category
-		seller = userRepository.findAll().blockLast()?.user ?: "Dan"
-	}
-
-	@Test
-	fun testValidateEndpoint_thenFindExpectedJson() {
-		client.get()
-				.uri("/validation/validate?seller=${seller}&category=${category}&title=${title}&price=${price}")
-				.exchange()
-				.expectStatus().isOk()
-				.expectBody()
-				.json("{\"eligible\":true}")
+		category = categoryRepository.findAll().log().blockLast()?.category ?: category
+		seller = userRepository.findAll().log().blockLast()?.user ?: "Dan"
 	}
 
 	@Test
@@ -50,6 +40,8 @@ class ValidationControllerTests(@Value("\${min.price.value}")
 				.uri("/validation/validate?seller=${seller}&category=${category}&title=${title}&price=${price}")
 				.exchange()
 				.expectStatus().isOk
+				.expectBody()
+				.json("{\"eligible\":true}")
 	}
 
 	@Test
@@ -59,6 +51,7 @@ class ValidationControllerTests(@Value("\${min.price.value}")
 				.exchange()
 				.expectStatus().isNotFound
 	}
+
 	@Test
 	fun testValidateEndpoint_withUnenrolledSeller() {
 		client.get()

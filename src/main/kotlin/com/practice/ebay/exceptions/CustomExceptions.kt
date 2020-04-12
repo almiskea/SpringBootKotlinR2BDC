@@ -10,3 +10,6 @@ class NotEligibleForShippingException(message: String) : Exception(message)
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
 class NotFoundException(message: String) : Exception(message)
+
+@ResponseStatus(HttpStatus.CONFLICT)
+class ResourceAlreadyExists(message: String) : Exception(message)
