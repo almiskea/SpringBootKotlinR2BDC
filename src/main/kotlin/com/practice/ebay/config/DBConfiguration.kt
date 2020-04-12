@@ -11,11 +11,11 @@ class DBConfiguration(db: DatabaseClient, @Value("\${min.price.value}") val minP
         val initDb = db.execute {
             """ CREATE TABLE IF NOT EXISTS $ENROLLED_USERS_TABLE (
                     id INT AUTO_INCREMENT PRIMARY KEY,
-                    $USERS_FIELD VARCHAR(250) NOT NULL UNIQUE
+                    $USERS_FIELD VARCHAR(250) NOT NULL
                 );
                 CREATE TABLE IF NOT EXISTS $PRE_APPROVED_CATEGORIES_TABLE(
                     id INT AUTO_INCREMENT PRIMARY KEY,
-                    $CATEGORY_FIELD INT NOT NULL UNIQUE
+                    $CATEGORY_FIELD INT NOT NULL
                 );
                 INSERT INTO $ENROLLED_USERS_TABLE ($USERS_FIELD) VALUES
                   ('Dan'),
