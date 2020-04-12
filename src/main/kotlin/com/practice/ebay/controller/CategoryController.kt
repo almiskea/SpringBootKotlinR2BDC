@@ -1,6 +1,7 @@
 package com.practice.ebay.controller
 
 import com.practice.ebay.exceptions.NotFoundException
+import com.practice.ebay.exceptions.ResourceAlreadyExists
 import com.practice.ebay.models.Category
 import com.practice.ebay.repositories.CategoryRepository
 import kotlinx.coroutines.reactive.awaitFirstOrElse
@@ -26,7 +27,7 @@ class CategoryController(val categoryRepository: CategoryRepository) {
     throw NotFoundException("Id is not associated with any category")
 
     @PostMapping("/{category}")
-    suspend fun insertCategory(@PathVariable category:Int): Void? = categoryRepository.insertCategory(category)?.awaitFirstOrNull()
+    suspend fun insertCategory(@PathVariable category:Int): Void? = categoryRepository.insertCategory(category)?.onErrorMap { throw ResourceAlreadyExists("Category Already Exists") }?.awaitFirstOrNull()
 
     @DeleteMapping("/")
     suspend fun deleteAll(): Void? = categoryRepository.deleteAll().awaitFirstOrNull()

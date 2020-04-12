@@ -1,6 +1,7 @@
 package com.practice.ebay.controller
 
 import com.practice.ebay.exceptions.NotFoundException
+import com.practice.ebay.exceptions.ResourceAlreadyExists
 import com.practice.ebay.models.User
 import com.practice.ebay.repositories.UserRepository
 import kotlinx.coroutines.reactive.awaitFirstOrElse
@@ -27,7 +28,7 @@ class UserController(val userRepository: UserRepository) {
     throw NotFoundException("Id is not associated with any user")
 
     @PostMapping("/{user}")
-    suspend fun add(@PathVariable user:String): Void? = userRepository.insertUser(user)?.awaitFirstOrNull()
+    suspend fun add(@PathVariable user:String): Void? = userRepository.insertUser(user)?.onErrorMap { throw ResourceAlreadyExists("User Already Exists") }?.awaitFirstOrNull()
 
     @DeleteMapping("/")
     suspend fun deleteAll(): Void? = userRepository.deleteAll().awaitFirstOrNull()
