@@ -28,7 +28,8 @@ class CategoryController(val categoryRepository: CategoryRepository) {
 
     @PostMapping("/{category}")
     suspend fun insertCategory(@PathVariable category:Int): Void? = categoryRepository.insertCategory(category)?.onErrorMap { throw ResourceAlreadyExists("Category Already Exists") }?.awaitFirstOrNull()
-
-    @DeleteMapping("/")
-    suspend fun deleteAll(): Void? = categoryRepository.deleteAll().awaitFirstOrNull()
+    //this can be implemented, but is not a good practice for an API endpoint
+    //because of how dangerous it is
+//    @DeleteMapping("/")
+//    suspend fun deleteAll(): Void? = categoryRepository.deleteAll().awaitFirstOrNull()
 }

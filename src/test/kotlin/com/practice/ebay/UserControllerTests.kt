@@ -5,7 +5,6 @@ import com.practice.ebay.controller.UserController
 import com.practice.ebay.models.User
 import com.practice.ebay.repositories.UserRepository
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -42,20 +41,6 @@ class UserControllerTests {
                 .expectNextSequence(userList)
                 .verifyComplete()
     }
-//
-//    @Test
-//    @Order(2)
-//    fun addUser_thenStatusShouldBeConflict() {
-//        var userList = userRepository.findAll().buffer(Int.MAX_VALUE).blockFirst()!!
-//        client.post()
-//                .uri("/users/${userList.last().user}")
-//                .exchange()
-//                .expectStatus().is4xxClientError
-////
-////        StepVerifier.create(userRepository.findAll().log())
-////                .expectNextSequence(userList)
-////                .verifyComplete()
-//    }
 
     @Test
     fun deleteUsers_thenStatusShouldBeOk() {

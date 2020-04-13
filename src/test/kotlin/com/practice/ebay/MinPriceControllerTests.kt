@@ -1,7 +1,9 @@
 package com.practice.ebay
 
+import com.google.gson.Gson
 import com.practice.ebay.controller.MinPriceController
 import com.practice.ebay.exceptions.CustomException
+import com.practice.ebay.models.Price
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,7 +16,7 @@ class MinPriceControllerTests {
     lateinit var client: WebTestClient
     @Autowired
     lateinit var controller: MinPriceController
-
+    var gson = Gson()
     @BeforeEach
     fun setup() {
         client = WebTestClient.bindToController(controller).build()
@@ -29,7 +31,7 @@ class MinPriceControllerTests {
                 .exchange()
                 .expectStatus().isOk
                 .expectBody()
-                .json("{\"price\":70.89}")
+                .json(gson.toJson(Price(70.89)))
         if(System.getProperty("min.price.value") != "70.89") throw CustomException("Not able to change the price")
     }
 
@@ -40,6 +42,6 @@ class MinPriceControllerTests {
                 .exchange()
                 .expectStatus().isOk
                 .expectBody()
-                .json("{\"price\":${System.getProperty("min.price.value")}}")
+                .json(gson.toJson(Price(System.getProperty("min.price.value").toDouble())))
     }
 }

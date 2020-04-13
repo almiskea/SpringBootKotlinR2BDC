@@ -3,7 +3,6 @@ package com.practice.ebay
 import com.google.gson.Gson
 import com.practice.ebay.controller.CategoryController
 import com.practice.ebay.models.Category
-import com.practice.ebay.models.User
 import com.practice.ebay.repositories.CategoryRepository
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

@@ -44,7 +44,8 @@ Functionality
 
 #### Assumptions I have made
 
-- I assumed that I have a limited time to create the app (one week max)
+- Assumed users and categories are unique
+- Assumed that I have a limited time to create the app (one week max)
 - I was not sure if the minimum price for the shipping program was a standered with all categories, or if there was a minimum price per category. I picked the first, which is a global universal pricing
 - I assumed that I don't have to use a separate Database or use caching server implementation and I am able to use in memory database, for testing and demonstrating the concept
 - I assumed that I don't need to implement a full integration testing, but unit testing lightly are sufficient 

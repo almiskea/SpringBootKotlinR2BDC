@@ -22,7 +22,7 @@ class ValidationControllerTests(@Value("\${min.price.value}")
 	lateinit var userRepository : UserRepository
 	@Autowired
 	lateinit var categoryRepository : CategoryRepository
-	var seller: String = "Bella"
+	var seller: String = "Jen"
 	var category : Int = 3
 	var price = minPrice
 	var title = "Shipping Service"
@@ -32,7 +32,7 @@ class ValidationControllerTests(@Value("\${min.price.value}")
 	fun setup() {
 		client = WebTestClient.bindToController(controller).build()
 		category = categoryRepository.findAll().log().blockLast()?.category ?: category
-//		seller = userRepository.findAll().log().blockLast()?.user ?: "Jen"
+		seller = userRepository.findAll().log().blockLast()?.user ?: "Jen"
 	}
 
 	@Test

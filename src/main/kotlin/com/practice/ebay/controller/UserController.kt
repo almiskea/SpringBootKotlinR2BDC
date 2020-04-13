@@ -30,8 +30,10 @@ class UserController(val userRepository: UserRepository) {
     @PostMapping("/{user}")
     suspend fun add(@PathVariable user:String): Void? = userRepository.insertUser(user)?.onErrorMap { throw ResourceAlreadyExists("User Already Exists") }?.awaitFirstOrNull()
 
-    @DeleteMapping("/")
-    suspend fun deleteAll(): Void? = userRepository.deleteAll().awaitFirstOrNull()
+    //this can be implemented, but is not a good practice for an API endpoint
+    //because of how dangerous it is
+//    @DeleteMapping("/")
+//    suspend fun deleteAll(): Void? = userRepository.deleteAll().awaitFirstOrNull()
 
 
 }
