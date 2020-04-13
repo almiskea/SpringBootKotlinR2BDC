@@ -21,29 +21,22 @@ class CategoryControllerTest {
     lateinit var controller: CategoryController
     @Autowired
     lateinit var categoryRepository : CategoryRepository
-    var category = 46
-    var categoryId = 1
 
     @BeforeEach
     fun setup() {
         client = WebTestClient.bindToController(controller).build()
-        categoryId = categoryRepository.findAll().log().blockLast()?.id!!
     }
 
     @Test
     fun addCategory_thenStatusShouldBeOk() {
         var categoryList = categoryRepository.findAll().buffer(Int.MAX_VALUE).blockFirst()!!
-        StepVerifier.create(categoryRepository.findAll().log())
-                .expectNextSequence(categoryList)
-                .verifyComplete()
-
         client.post()
-                .uri("/categories/${category}")
+                .uri("/categories/${categoryList.last().category?.plus(1)}")
                 .exchange()
                 .expectStatus().isOk
                 .expectBody().isEmpty
 
-        categoryList.add(Category(categoryList.last().id?.plus(1),category))
+        categoryList.add(Category(categoryList.last().id?.plus(1),categoryList.last().category?.plus(1)))
         StepVerifier.create(categoryRepository.findAll().log())
                 .expectNextSequence(categoryList)
                 .verifyComplete()
@@ -52,10 +45,6 @@ class CategoryControllerTest {
     @Test
     fun deleteCategory_thenStatusShouldBeOk() {
         var categoryList = categoryRepository.findAll().buffer(Int.MAX_VALUE).blockFirst()!!
-        StepVerifier.create(categoryRepository.findAll().log())
-                .expectNextSequence(categoryList)
-                .verifyComplete()
-
         client.delete()
                 .uri("/categories/${categoryList.get(0).id}")
                 .exchange()
@@ -70,9 +59,9 @@ class CategoryControllerTest {
 
     @Test
     fun getCategory1_thenStatusShouldBeOk() {
-        var category = categoryRepository.findById(categoryId).block()!!
+        var category = categoryRepository.findAll().log().blockLast()
         client.get()
-                .uri("/categories/$categoryId")
+                .uri("/categories/${category?.id}")
                 .exchange()
                 .expectStatus().isOk
                 .expectBody()
@@ -82,9 +71,6 @@ class CategoryControllerTest {
     @Test
     fun getCategories_thenStatusShouldBeOk() {
         var categoryList = categoryRepository.findAll().buffer(Int.MAX_VALUE).blockFirst()!!
-        StepVerifier.create(categoryRepository.findAll().log())
-                .expectNextSequence(categoryList)
-                .verifyComplete()
         client.get()
                 .uri("/categories/")
                 .exchange()

@@ -4,6 +4,7 @@ import com.practice.ebay.controller.ValidationController
 import com.practice.ebay.repositories.CategoryRepository
 import com.practice.ebay.repositories.UserRepository
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -21,8 +22,8 @@ class ValidationControllerTests(@Value("\${min.price.value}")
 	lateinit var userRepository : UserRepository
 	@Autowired
 	lateinit var categoryRepository : CategoryRepository
-	lateinit var seller: String
-	var category : Int = 1
+	var seller: String = "Bella"
+	var category : Int = 3
 	var price = minPrice
 	var title = "Shipping Service"
 
@@ -31,10 +32,11 @@ class ValidationControllerTests(@Value("\${min.price.value}")
 	fun setup() {
 		client = WebTestClient.bindToController(controller).build()
 		category = categoryRepository.findAll().log().blockLast()?.category ?: category
-		seller = userRepository.findAll().log().blockLast()?.user ?: "Dan"
+//		seller = userRepository.findAll().log().blockLast()?.user ?: "Jen"
 	}
 
 	@Test
+	@Order(1)
 	fun testValidateEndpoint_thenStatusShouldBeOk() {
 		client.get()
 				.uri("/validation/validate?seller=${seller}&category=${category}&title=${title}&price=${price}")
