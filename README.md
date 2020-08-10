@@ -35,11 +35,20 @@ Functionality
 ### Injellij
 - import it to intellij and run it
 
-### Commandline
+### Api Documentation with openApi
+- go to ```http://localhost:8080/swagger-ui.html```
+
+### Commandline to run with Gradle
 - install gradle and java
 - run ```./gradlew clean build``` to run the tests
 - run ```./gradlew clean build & java -jar build/libs/ebay-1.0.1.jar``` to run the application with the tests
 - run ```./graldew bootrun``` to start the application without the tests
+- The application runs on port 8080 by default
+
+### Commandline to run with Docker
+- install docker
+- run ```docker-compose up --build``` run without tests
+- got to Dockerfile, remove the ```-xcheck``` from ```RUN ./gradlew clean build -xcheck``` to be ```RUN ./gradlew clean build``` tu run with tests using ```docker-compose up --build```
 - The application runs on port 8080 by default
 
 #### Assumptions I have made
